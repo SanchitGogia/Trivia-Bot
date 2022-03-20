@@ -12,16 +12,16 @@ flag  = 0
 async def on_message(message):
     if message.author == client.user:
         return 
-    if message.content == "!trivia":
-        x = datetime.today().strftime('%m-%d').split('-')
-        date_string = '{0}-{1}'.format(MONTHS[int(x[0])-1], x[1])
-        await message.channel.send(get_featured(date_string))
-    if flag == 1:
-        flag = 0
-        await message.channel.send(message.content)
-    if message.content=="!trivia specific":
-        flag = 1
-        await message.channel.send("Please write the date in MM/DD format")
+    if message.content.startswith("!trivia"):
+        if message.content == "!trivia":
+            x = datetime.today().strftime('%m-%d').split('-')
+            date_string = '{0}-{1}'.format(MONTHS[int(x[0])-1], x[1])
+            await message.channel.send(get_featured(date_string))
+        else:
+            try:
+                await message.channel.send(get_featured(message.content[8:]))
+            except:
+                await message.channel.send("Date invalid, Please try again in the format \"!trivia \{Month\}-\{day\}")
     
 
 client.run("OTU0NTMxMDQ3NTQ5MzMzNTg0.YjUeUA.EkEyN4m7YRCFzQVV1WJOomW3A64")
