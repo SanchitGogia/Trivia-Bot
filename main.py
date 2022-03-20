@@ -1,6 +1,7 @@
 import discord
 from datetime import datetime
 from scraper import get_featured
+from decouple import config
 MONTHS = ['January','February','March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 client = discord.Client()
@@ -24,4 +25,4 @@ async def on_message(message):
                 await message.channel.send("Date invalid, Please try again in the format \"!trivia \{Month\}-\{day\}")
     
 
-client.run("OTU0NTMxMDQ3NTQ5MzMzNTg0.YjUeUA.EkEyN4m7YRCFzQVV1WJOomW3A64")
+client.run(config('TOKEN'))
